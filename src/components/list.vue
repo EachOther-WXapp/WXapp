@@ -1,11 +1,17 @@
 <template>
   <ul class="list">
     <li v-for="(i, index) in list" :key="index" @click="go(i)">
-      <img :src="i.icon" alt="" class="left">
-      <div class="right">
-        <h2 class="title">{{i.title}}</h2>
-        <p class="address">地址：{{i.address}}</p>
-        <p class="bot"><span class="teacher">讲师：{{i.teacher}}</span> <span class="time">时间：{{i.time}}</span></p>
+      <div class="top">
+        <img :src="i.icon" alt="" class="left">
+        <div class="right">
+          <h2 class="title">{{i.title}}</h2>
+          <p class="address">地址：{{i.address}}</p>
+          <p class="bot"><span class="teacher">讲师：{{i.teacher}}</span> <span class="time">时间：{{i.time}}</span></p>
+        </div>
+      </div>
+      <div class="bottom">
+        <button class="btn">加入培训</button>
+
       </div>
     </li>
   </ul>

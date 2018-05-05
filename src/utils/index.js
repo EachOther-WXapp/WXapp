@@ -20,7 +20,7 @@ export function formatTime (date) {
 
 
 export function link (url,obj) {
-
+  if(!url) return
   url = `/pages/${url}/main`
 
   if(obj){

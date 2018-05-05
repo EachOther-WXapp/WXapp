@@ -11,6 +11,7 @@ export default {
 </script>
 
 <style>
+  @import "./assets/font/iconfont.css";
 .container {
   height: 100%;
   display: flex;
@@ -29,4 +30,11 @@ export default {
   -webkit-transition: width 2s;
   -o-transition: width 2s;
 }
+  .btn{
+    background: #65e46e;
+    color: #fff;
+  }
+  .btn:active{
+    background: #65D96D;
+  }
 </style>
