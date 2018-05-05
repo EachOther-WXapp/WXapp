@@ -1,5 +1,5 @@
 <template>
-  <div class="history">
+  <div class="all">
     <proList :data.sync="list"/>
   </div>
 </template>
@@ -24,7 +24,7 @@
 
     methods: {
       init () {
-        http('POST',Api.history_train).then(res=>{
+        http('POST',Api.joined_train).then(res=>{
           this.list = res
         })
       },

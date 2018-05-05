@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-once>
+  <div class="container" >
     <div class="userinfo">
       <img :src="head_bg" alt="" class="bg">
       <img class="userinfo-avatar" :src="userInfo.avatarUrl" background-size="cover" />
@@ -43,7 +43,7 @@
         infolist: [{
           icon: 'icon-daiban',
           name: '我参加的',
-          url: ''
+          url: 'joined'
         },{
           icon: 'icon-fabu',
           name: '我发布的',
@@ -51,7 +51,7 @@
         },{
           icon: 'icon-shouye',
           name: '我培训的',
-          url: ''
+          url: 'history'
         }]
       }
     },

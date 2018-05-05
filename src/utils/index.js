@@ -36,18 +36,21 @@ export function link (url,obj) {
 
 export function http(method='GET', api, data) {
   let url = require('@/config/').default.url + api;
+  let token = wx.getStorageSync('token') || require('@/state/store').default.state.token;
  return new Promise((resole,reject)=>{
-   let store = require('@/state/store').default.state;
+
    wx.request({
       method,
       url,
       data,
       header: {
         'content-type': 'application/json', // 默认值
-        'Authorization': 'Bearer '+store.token
+        'Authorization': 'Bearer '+token
       },
       success: function(res) {
         if(res.data.msg === 'OK' && res.data.code === 200){
+          // console.log('当前接口地址为'+api)
+          // console.log(res.data.data)
           resole(res.data.data)
         }else{
           reject(res.data)

@@ -64,5 +64,8 @@
   .menu li.act{
     color: #65e46e;
   }
+  .menu li:active{
+     transform: scale(1.2);
+  }
 
 </style>

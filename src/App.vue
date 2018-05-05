@@ -13,6 +13,7 @@
       wx.login({
         success: r => {
           http('POST',Api.set_user_info,r).then(result=>{
+            wx.setStorageSync('token', result)
             store.commit('set_token', result)
             wx.getUserInfo({
               success: res => {

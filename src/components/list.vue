@@ -1,19 +1,20 @@
 <template>
   <ul class="list">
-    <li v-for="(i, index) in list" :key="index" @click="go(i)">
+    <li v-for="(i, index) in data" :key="index" >
       <div class="top">
-        <img :src="i.icon" alt="" class="left">
+        <img :src="i.icon" alt="" class="left" v-if="i.icon" @click="go(i)">
         <div class="right">
-          <h2 class="title">{{i.title}}</h2>
-          <p class="address">地址：{{i.address}}</p>
-          <p class="bot"><span class="teacher">讲师：{{i.teacher}}</span> <span class="time">时间：{{i.time}}</span></p>
+          <div @click="go(i)">
+            <h2 class="title">{{i.theme}}</h2>
+            <p class="address">地址：{{i.site}}</p>
+            <p class="bot"><span class="teacher">讲师：{{i.lecturer}}</span> <span class="time">时间：{{i.trainStartTimeStr}}~{{i.trainEndTimeStr}}</span></p>
+          </div>
           <div class="bottom">
-            <span><button class="btn">加入培训</button></span>
-            <span><i class="iconfont icon-zan1"></i></span>
+            <span><button class="btn" @click="join(i, index)" :class="i.joinFlag ? '' : 'dis'">{{ i.joinFlag ? '加入培训' : '已参加'}}</button></span>
+            <span class="zancon" :class="index === act ? 'animate' : 'plus'"><i class="likeNumber" v-if="i.likeNumber>0" >+{{i.likeNumber}}</i><i @click="zan(i,index)" class="zan iconfont icon-zan1" :class="i.likeNumber>0 ? 'act' : ''"></i></span>
           </div>
         </div>
       </div>
-
     </li>
   </ul>
 </template>
@@ -21,102 +22,30 @@
 <script>
   import { link } from '@/utils'
   import detail from "./detail";
-
+  import { http } from '@/utils'
+  import Api from '@/config/api'
   export default {
     data(){
       return{
-        list: [
-          {
-            icon: require('@/assets/detail_bg.jpg'),
-            title: '人力资源制度讲解',
-            time: '20180504',
-            address: '1号楼102',
-            teacher: '刘泽明'
-          },
-          {
-            icon: require('@/assets/detail_bg.jpg'),
-            title: 'java入门培训',
-            time: '20180505',
-            address: '2号楼201',
-            teacher: '李思伍'
-          },
-          {
-            icon: require('@/assets/detail_bg.jpg'),
-            title: 'c#.net入门培训',
-            time: '20180506',
-            address: '3号楼303',
-            teacher: '张强'
-          },     {
-            icon: require('@/assets/detail_bg.jpg'),
-            title: '人力资源制度讲解',
-            time: '20180504',
-            address: '1号楼102',
-            teacher: '刘泽明'
-          },
-          {
-            icon: require('@/assets/detail_bg.jpg'),
-            title: 'java入门培训',
-            time: '20180505',
-            address: '2号楼201',
-            teacher: '李思伍'
-          },
-          {
-            icon: require('@/assets/detail_bg.jpg'),
-            title: 'c#.net入门培训',
-            time: '20180506',
-            address: '3号楼303',
-            teacher: '张强'
-          },     {
-            icon: require('@/assets/detail_bg.jpg'),
-            title: '人力资源制度讲解',
-            time: '20180504',
-            address: '1号楼102',
-            teacher: '刘泽明'
-          },
-          {
-            icon: require('@/assets/detail_bg.jpg'),
-            title: 'java入门培训',
-            time: '20180505',
-            address: '2号楼201',
-            teacher: '李思伍'
-          },
-          {
-            icon: require('@/assets/detail_bg.jpg'),
-            title: 'c#.net入门培训',
-            time: '20180506',
-            address: '3号楼303',
-            teacher: '张强'
-          },     {
-            icon: require('@/assets/detail_bg.jpg'),
-            title: '人力资源制度讲解',
-            time: '20180504',
-            address: '1号楼102',
-            teacher: '刘泽明'
-          },
-          {
-            icon: require('@/assets/detail_bg.jpg'),
-            title: 'java入门培训',
-            time: '20180505',
-            address: '2号楼201',
-            teacher: '李思伍'
-          },
-          {
-            icon: require('@/assets/detail_bg.jpg'),
-            title: 'c#.net入门培训',
-            time: '20180506',
-            address: '3号楼303',
-            teacher: '张强'
-          }
-        ]
+        act: null
       }
     },
     components: {
       detail
     },
-
+    props: ['data'],
     methods: {
       go(obj){
-        link('detail',obj)
+        link('detail',{trainId: obj.id})
+      },
+      join(obj,index){
+        http('GET',Api.join_train,{trainId:obj.id}).then(res=>{
+          console.log(res)
+        })
+      },
+      zan(obj,index){
+        this.act = index;
+        http('GET',Api.zan,{trainId:obj.id}).then(()=>this.data[index].likeNumber++);
       }
     }
   }
@@ -124,8 +53,20 @@
 </script>
 <style scoped>
   li{
+    position: relative;
     border-bottom: 1px solid #e8e8e8;
     padding: 30rpx;
+    display: flex;
+    align-items: center
+  }
+  li>div{
+    flex: 1;
+  }
+  li:after{
+    position: absolute;
+    right: 20rpx;
+    content: '>';
+    transform: scale(1,1.5);
   }
   .top{
     display: flex;
@@ -142,9 +83,19 @@
     width: 200rpx;
     font-size: 28rpx;
   }
+  .bottom span:last-child{
+    position: relative;
+  }
   .bottom i{
     font-size: 50rpx;
     text-align: right;
+  }
+  .bottom i.likeNumber{
+    right: -20rpx;
+    top: -20rpx;
+    color: #65e46e;
+    position: absolute;
+    font-size: 24rpx;
   }
   .left{
     width: 200rpx;
@@ -171,5 +122,31 @@
   .right .teacher{
     font-size: 24rpx;
   }
+  .zancon.animate{
+    animation: zan .5s ;
+  }
+  .zan.act{
+    color: #65e46e;
+  }
+  .btn.dis{
+    pointer-events: none;
+    background: #ccc;
+  }
+  @keyframes zan
+  {
+    0% {
+      transform-origin: left top;
+      transform: scale(.9) rotate(45deg);
+    }
+    75% {
+      transform-origin: left top;
+      transform: scale(1.5) rotate(-30deg);
+    }
+    100% {
+      transform-origin: left top;
+      transform: scale(1) rotate(0);
+    }
+  }
+
 </style>
 

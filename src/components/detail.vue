@@ -2,24 +2,48 @@
   <div class="detail">
     <div class="head">
       <img :src="data.icon" alt="" class="left">
-      <h2 class="title">{{data.title}}</h2>
-      <p class="time">时间：{{data.time}}</p>
-      <p class="address">地址：{{data.address}}</p>
-      <p class="teacher">讲师：{{data.teacher}}</p>
-      <p class="remank">详情：{{data.remank}}</p>
+      <h2 class="title">{{data.theme}}</h2>
+      <p class="time">
+        <i class="iconfont icon-shijian"></i>
+       <span>开始时间：{{data.trainStartTimeStr}}</span>
+      </p>
+      <p class="time">
+        <i class="iconfont icon-shijian"></i>
+        <span>结束时间：{{data.trainEndTimeStr}}</span>
+      </p>
+      <p class="teacher">
+        <i class="iconfont icon-jiangshi"></i>
+        <span>讲师：{{data.lecturer}}</span>
+      </p>
+      <p class="address">
+        <i class="iconfont icon-didian"></i>
+        <span>地址：{{data.site}}</span>
+      </p>
+      <p class="conferenceId">
+        <i class="iconfont icon-team"></i>
+        <span>TeamView：{{data.conferenceId}}</span>
+      </p>
+      <p class="githubUrl">
+        <i class="iconfont icon-github"></i>
+        <span>github：{{data.githubUrl}}</span>
+      </p>
+      <p class="remank">
+        <i class="iconfont icon-record-copy"></i>
+        <span>详情：{{data.detail}}</span>
+      </p>
     </div>
-    <div class="qa">
-      <ul>
-        <li v-for="(i, index) in list" :key="index">
-          <div class="q">
-            <span>{{i.q}}</span>
-          </div>
-          <div class="a">
-            {{i.a}}
-          </div>
-        </li>
-      </ul>
-    </div>
+    <!--<div class="qa">-->
+      <!--<ul>-->
+        <!--<li v-for="(i, index) in list" :key="index">-->
+          <!--<div class="q">-->
+            <!--<span>{{i.q}}</span>-->
+          <!--</div>-->
+          <!--<div class="a">-->
+            <!--{{i.a}}-->
+          <!--</div>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
   </div>
 </template>
 
@@ -37,18 +61,7 @@
         }]
       }
     },
-    props: ['data'],
-    created(){
-        this.data = {
-          icon: require('@/assets/detail_bg.jpg'),
-          title: '人力资源制度讲解',
-          time: '20180504',
-          address: '1号楼102',
-          teacher: '刘泽明',
-          remank: '这里是心情熬过去这里是心情熬过去这里是心情熬过去这里是心情熬过去这里是心情熬过去这里是心情熬过去这里是心情熬过去这里是心情熬过去这里是心情熬过去'
-        }
-    }
-
+    props: ['data']
   };
 </script>
 
@@ -63,20 +76,16 @@
   text-align: center;
   font-size: 40rpx;
 }
-.head .time{
+.head p{
+  padding: 30rpx 0;
+  border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  align-items: center;
+  line-height: 70rpx;
   font-size: 32rpx;
   color: #666;
 }
-.head .address{
-  font-size: 32rpx;
-  color: #666;
-}
-.head .teacher{
-  font-size: 32rpx;
-  color: #666;
-}
-.head .remank{
-  font-size: 32rpx;
-  color: #666;
+.head p i{
+  width: 50rpx;
 }
 </style>

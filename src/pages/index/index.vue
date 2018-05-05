@@ -1,15 +1,21 @@
 <template>
   <div class="index">
-    <proList/>
+    <proList :data.sync="list"/>
   </div>
 </template>
 
 <script>
+  import { http } from '@/utils'
+  import Api from '@/config/api'
   import proList from "@/components/list";
 export default {
-  computed: {
-    count () {
+  data(){
+    return{
+      list:[]
     }
+  },
+  created() {
+    this.init();
   },
 
   components: {
@@ -17,10 +23,11 @@ export default {
   },
 
   methods: {
-    increment () {
+    init () {
+      http('POST',Api.today_list).then(res=>{
+        this.list = res
+      })
     },
-    decrement () {
-    }
   }
 }
 

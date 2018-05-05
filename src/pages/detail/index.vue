@@ -1,25 +1,34 @@
 <template>
   <div class="detail">
-    <detail :data="$root.$mp.query"/>
+    <detail :data="detail"/>
   </div>
 </template>
 
 <script>
+  import { http } from '@/utils'
+  import Api from '@/config/api'
   import detail from "@/components/detail"
   export default {
-    computed: {
-      count () {
+    data(){
+      return{
+        detail: {}
       }
     },
-
+    onLoad() {
+      this.init();
+    },
     components: {
       detail
     },
     methods: {
-      increment () {
+      init () {
+        const {trainId} = this.$root.$mp.query;
+        http('GET',Api.train_detail,{
+          trainId
+        }).then(res=>{
+          this.detail = res
+        })
       },
-      decrement () {
-      }
     }
   }
 
