@@ -36,7 +36,7 @@ var compiler = webpack(webpackConfig)
 // force page reload when html-webpack-plugin template changes
 // compiler.plugin('compilation', function (compilation) {
 //   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-//     hotMiddleware.publish({ action: 'reload' })
+//     hotMiddleware.publishTrain({ action: 'reload' })
 //     cb()
 //   })
 // })

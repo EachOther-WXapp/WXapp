@@ -17,8 +17,10 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 200rpx 0;
   box-sizing: border-box;
+  color: #8e8c8c;
+  font-size: 32rpx;
+  background: #f12f2f2;
 }
 /* this rule will be remove */
 * {

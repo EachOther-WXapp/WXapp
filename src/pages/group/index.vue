@@ -1,20 +1,30 @@
 <template>
   <div class="counter-warp">
-    <wx-menu local="group"></wx-menu>
-    group
+    <ul>
+      <li v-for="(i, index) in list" :key="index">
+        {{i.name}}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-  import menu from "@/components/menu";
 export default {
+    data(){
+        return{
+            list:[{
+                name: '12321'
+            },{
+                name: 'dasfs'
+            }]
+        }
+    },
   computed: {
     count () {
     }
   },
 
   components: {
-    'wx-menu': menu
   },
 
   methods: {
@@ -26,6 +36,6 @@ export default {
 }
 
 </script>
-<style>
+<style scoped>
 
 </style>

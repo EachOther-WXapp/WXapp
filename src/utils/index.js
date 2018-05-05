@@ -19,8 +19,17 @@ export function formatTime (date) {
 }
 
 
-export function link (url) {
+export function link (url,obj) {
+
   url = `/pages/${url}/main`
+
+  if(obj){
+    let params='';
+    Object.keys(obj).forEach(t=>{
+      params += `&${t}=${obj[t]}`
+    })
+    url += `?${params.slice(1)}`
+  }
   wx.navigateTo({ url });
 }
 

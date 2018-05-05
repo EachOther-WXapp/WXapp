@@ -1,6 +1,6 @@
 <template>
     <ul class="menu">
-        <li v-for="(i, index) in list" :key="i.name" @click="go(i)" :classs="i.url === local ? 'act' : ''">
+        <li v-for="(i, index) in list" :key="i.name" @click="go(i, index)" v-bind:style="{ color: index === act ? 'red' : '' }">
           <i class="iconfont" :class="i.icon"></i>
           <span>{{i.name}}</span>
         </li>
@@ -8,10 +8,14 @@
 </template>
 
 <script>
+  // Use Vuex
+  import store from '@/state/store'
   import { link } from '@/utils'
   export default {
   data() {
     return {
+      abc: 'red',
+      act: 0,
       list: [
         {
           icon: "icon-shouye",
@@ -31,20 +35,31 @@
       ]
     };
   },
+  computed: {
+    computedClassStr (a) {
+      return 'red'
+    },
+  },
   props: ['local'],
   created() {
   },
   methods: {
-    go (obj) {
-      link(obj.url)
+    go (obj, index) {
+      this.act = index === this.act ? 'red' : '';
+      store.commit('deal_menu', obj.url)
+//      link(obj.url)
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
   @import "../assets/font/iconfont.css";
   .menu{
+    z-index: 100;
+    background: #fff;
+    height: 100rpx;
+    border-top: 1px solid #dedede;
     text-align: center;
     position: fixed;
     bottom: 0;

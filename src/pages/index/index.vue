@@ -1,12 +1,11 @@
 <template>
-  <div class="counter-warp">
-    <wx-menu local="index"></wx-menu>
-    index
+  <div class="index">
+    <proList/>
   </div>
 </template>
 
 <script>
-  import menu from "@/components/menu";
+  import proList from "@/components/list";
 export default {
   computed: {
     count () {
@@ -14,7 +13,7 @@ export default {
   },
 
   components: {
-    'wx-menu': menu
+    proList
   },
 
   methods: {
@@ -26,6 +25,6 @@ export default {
 }
 
 </script>
-<style>
+<style scoped>
 
 </style>
