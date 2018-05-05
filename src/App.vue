@@ -1,11 +1,29 @@
 <script>
-export default {
+  import store from '@/state/store'
+  import { http } from '@/utils'
+  import Api from '@/config/api'
+
+  export default {
   created () {
-    // 调用API从本地缓存中获取数据
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-    console.log('app created and cache logs by setStorageSync')
+    this.getUserInfo();
+  },
+  methods: {
+    getUserInfo() {
+      // 调用登录接口
+      wx.login({
+        success: r => {
+          http('POST',Api.set_user_info,r).then(result=>{
+            store.commit('set_token', result)
+            wx.getUserInfo({
+              success: res => {
+                store.commit('set_user_info', res.userInfo)
+                http('POST',Api.update_user_info,res.userInfo)
+              }
+            });
+          });
+        }
+      });
+    },
   }
 }
 </script>

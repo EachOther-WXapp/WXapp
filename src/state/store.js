@@ -10,12 +10,20 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    token: '',
+    userInfo: {},
     menu_act: 'index'
   },
   mutations: {
     deal_menu: (state, index) => {
       state.menu_act = index;
     },
+    set_user_info: (state, data) =>{
+      state.userInfo = data
+    },
+    set_token: (state, token) =>{
+      state.token = token
+    }
   }
 })
 

@@ -24,12 +24,13 @@
 </template>
 
 <script>
+  import store from '@/state/store'
   import { link } from '@/utils'
   export default {
     data(){
       return{
         head_bg: require('@/assets/head_bg.jpg'),
-        userInfo: {},
+        userInfo: store.state.userInfo,
         featurelist: [{
           icon: 'icon-peixun',
           name: '发起培训',
@@ -63,24 +64,9 @@
     },
 
     created() {
-      // 调用应用实例的方法获取全局数据
-      this.getUserInfo();
     },
 
     methods: {
-      getUserInfo() {
-        // 调用登录接口
-        wx.login({
-          success: () => {
-            wx.getUserInfo({
-              success: res => {
-                this.userInfo = res.userInfo;
-//                console.log(res)
-              }
-            });
-          }
-        });
-      },
       go(obj){
         link(obj.url)
       }

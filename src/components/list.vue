@@ -7,12 +7,13 @@
           <h2 class="title">{{i.title}}</h2>
           <p class="address">地址：{{i.address}}</p>
           <p class="bot"><span class="teacher">讲师：{{i.teacher}}</span> <span class="time">时间：{{i.time}}</span></p>
+          <div class="bottom">
+            <span><button class="btn">加入培训</button></span>
+            <span><i class="iconfont icon-zan1"></i></span>
+          </div>
         </div>
       </div>
-      <div class="bottom">
-        <button class="btn">加入培训</button>
 
-      </div>
     </li>
   </ul>
 </template>
@@ -123,11 +124,27 @@
 </script>
 <style scoped>
   li{
+    border-bottom: 1px solid #e8e8e8;
+    padding: 30rpx;
+  }
+  .top{
     display: flex;
     align-items: center;
     justify-content: space-around;
-    box-sizing: border-box;
-    padding: 30rpx;
+  }
+  .bottom{
+    padding-top: 20rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .bottom button{
+    width: 200rpx;
+    font-size: 28rpx;
+  }
+  .bottom i{
+    font-size: 50rpx;
+    text-align: right;
   }
   .left{
     width: 200rpx;

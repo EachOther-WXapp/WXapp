@@ -33,3 +33,26 @@ export function link (url,obj) {
   wx.navigateTo({ url });
 }
 
+
+export function http(method='GET', api, data) {
+  let url = require('@/config/').default.url + api;
+ return new Promise((resole,reject)=>{
+   let store = require('@/state/store').default.state;
+   wx.request({
+      method,
+      url,
+      data,
+      header: {
+        'content-type': 'application/json', // 默认值
+        'Authorization': 'Bearer '+store.token
+      },
+      success: function(res) {
+        if(res.data.msg === 'OK' && res.data.code === 200){
+          resole(res.data.data)
+        }else{
+          reject(res.data)
+        }
+      }
+    })
+  })
+}
