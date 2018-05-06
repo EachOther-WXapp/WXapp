@@ -26,12 +26,6 @@ export default {
     mine,
     'wx-menu': menu
   },
-  methods: {
-    increment () {
-    },
-    decrement () {
-    }
-  }
 }
 
 </script>

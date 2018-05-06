@@ -15,6 +15,9 @@
       }
     },
     onLoad() {
+      wx.setNavigationBarTitle({
+        title: '培训详情'
+      })
       this.init();
     },
     components: {

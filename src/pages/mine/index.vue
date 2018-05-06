@@ -24,6 +24,7 @@
 </template>
 
 <script>
+
   import store from '@/state/store'
   import { link } from '@/utils'
   export default {

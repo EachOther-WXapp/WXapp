@@ -1,14 +1,14 @@
 <template>
   <div class="detail">
     <div class="head">
-      <img :src="data.icon" alt="" class="left">
+      <img :src="data.imageUrl" alt="" class="left" v-if="data.imageUrl">
       <h2 class="title">{{data.theme}}</h2>
       <p class="time">
-        <i class="iconfont icon-shijian"></i>
+        <i class="iconfont icon-kaishishijian"></i>
        <span>开始时间：{{data.trainStartTimeStr}}</span>
       </p>
       <p class="time">
-        <i class="iconfont icon-shijian"></i>
+        <i class="iconfont icon-jieshushijian"></i>
         <span>结束时间：{{data.trainEndTimeStr}}</span>
       </p>
       <p class="teacher">

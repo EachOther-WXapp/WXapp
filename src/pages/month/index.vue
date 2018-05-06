@@ -1,6 +1,6 @@
 <template>
   <div class="all">
-    <proList :data.sync="list"/>
+    <proList :data.sync="list" type="month"/>
   </div>
 </template>
 
@@ -15,6 +15,9 @@
       }
     },
     onLoad() {
+      wx.setNavigationBarTitle({
+        title: '一个月内的培训'
+      })
       this.init();
     },
 

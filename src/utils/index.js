@@ -59,3 +59,27 @@ export function http(method='GET', api, data) {
     })
   })
 }
+
+
+export function upload(method='GET', api, filePath) {
+
+  let url = require('@/config/').default.url + api;
+  let token = wx.getStorageSync('token') || require('@/state/store').default.state.token;
+
+  return new Promise((resole,reject)=>{
+
+    wx.uploadFile({
+      url,
+      filePath,
+      name: 'file',
+      header: {
+        'Authorization': 'Bearer '+token
+      },
+      success: function(res){
+        var data = res.data
+        //do something
+      }
+    })
+
+  })
+}

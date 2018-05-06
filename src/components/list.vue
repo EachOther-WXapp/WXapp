@@ -2,14 +2,14 @@
   <ul class="list">
     <li v-for="(i, index) in data" :key="index" >
       <div class="top">
-        <img :src="i.icon" alt="" class="left" v-if="i.icon" @click="go(i)">
+        <img :src="i.imageUrl" alt="" class="left" v-if="i.imageUrl" @click="go(i)">
         <div class="right">
           <div @click="go(i)">
             <h2 class="title">{{i.theme}}</h2>
             <p class="address">地址：{{i.site}}</p>
             <p class="bot"><span class="teacher">讲师：{{i.lecturer}}</span> <span class="time">时间：{{i.trainStartTimeStr}}~{{i.trainEndTimeStr}}</span></p>
           </div>
-          <div class="bottom">
+          <div class="bottom" v-if="type === 'index' || type === 'month'">
             <span><button class="btn" @click="join(i, index)" :class="i.joinFlag ? '' : 'dis'">{{ i.joinFlag ? '加入培训' : '已参加'}}</button></span>
             <span class="zancon" :class="index === act ? 'animate' : 'plus'"><i class="likeNumber" v-if="i.likeNumber>0" >+{{i.likeNumber}}</i><i @click="zan(i,index)" class="zan iconfont icon-zan1" :class="i.likeNumber>0 ? 'act' : ''"></i></span>
           </div>
@@ -33,14 +33,19 @@
     components: {
       detail
     },
-    props: ['data'],
+    props: ['data', 'type'],
     methods: {
       go(obj){
         link('detail',{trainId: obj.id})
       },
       join(obj,index){
-        http('GET',Api.join_train,{trainId:obj.id}).then(res=>{
-          console.log(res)
+        if(!obj.joinFlag)return
+        http('GET',Api.join_train,{trainId:obj.id}).then(()=>{
+          this.data[index].joinFlag = !this.data[index].joinFlag
+          wx.showToast({
+            title: "加入成功!",
+            duration: 1000
+          })
         })
       },
       zan(obj,index){

@@ -39,12 +39,18 @@
         }
       }
     },
+
     computed: {
       count () {
       }
     },
 
     components: {
+    },
+    onLoad(){
+      wx.setNavigationBarTitle({
+        title: '发起投票'
+      })
     },
     methods: {
       timeChange(e) {

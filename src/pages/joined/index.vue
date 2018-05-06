@@ -1,6 +1,6 @@
 <template>
   <div class="all">
-    <proList :data.sync="list"/>
+    <proList :data.sync="list" type="joined"/>
   </div>
 </template>
 
@@ -15,6 +15,9 @@
       }
     },
     onLoad() {
+      wx.setNavigationBarTitle({
+        title: '我参加的'
+      })
       this.init();
     },
 

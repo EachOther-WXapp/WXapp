@@ -15,7 +15,7 @@ export default {
   data(){
       return{
         list:[{
-          icon: require('@/assets/group1.jpg'),
+          icon: require('@/assets/group1.jpeg'),
           name: '最近一个月',
           url: 'month'
         },{

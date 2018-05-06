@@ -33,9 +33,17 @@
       ]
     };
   },
+  created(){
+    wx.setNavigationBarTitle({
+      title: this.list[0].name
+    })
+  },
   methods: {
     go (obj, index) {
       this.act = index;
+      wx.setNavigationBarTitle({
+        title: obj.name
+      })
       store.commit('deal_menu', obj.url)
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <proList :data.sync="list"/>
+    <proList :data.sync="list" type="index"/>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
       list:[]
     }
   },
-  created() {
+  onLoad() {
     this.init();
   },
 

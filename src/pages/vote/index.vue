@@ -46,6 +46,11 @@
 
     components: {
     },
+    onLoad(){
+      wx.setNavigationBarTitle({
+        title: '投票详情'
+      })
+    },
     methods: {
       timeChange(e) {
         this.time.value = e.target.value;

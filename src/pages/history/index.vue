@@ -1,6 +1,6 @@
 <template>
   <div class="history">
-    <proList :data.sync="list"/>
+    <proList :data.sync="list" type="history"/>
   </div>
 </template>
 
@@ -15,6 +15,9 @@
       }
     },
     onLoad() {
+      wx.setNavigationBarTitle({
+        title: '培训历史'
+      })
       this.init();
     },
 
