@@ -38,7 +38,6 @@ export function http(method='GET', api, data, loading=true) {
   let url = require('@/config/').default.url + api;
   let token = wx.getStorageSync('token') || require('@/state/store').default.state.token;
  return new Promise((resole,reject)=>{
-   console.log(api, loading)
    if(loading){
      wx.showToast({
        title: "加载中...",

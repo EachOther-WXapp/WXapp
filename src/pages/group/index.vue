@@ -21,7 +21,7 @@ export default {
         },{
           icon: require('@/assets/group2.jpg'),
           name: '培训投票区',
-          url: 'publishTrain'
+          url: 'vote'
         },{
           icon: require('@/assets/group3.png'),
           name: '敬请期待',

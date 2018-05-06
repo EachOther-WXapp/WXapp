@@ -1,6 +1,6 @@
 <template>
-  <div class="joined">
-    <proList :data.sync="list" type="joined"/>
+  <div class="publishTraninHistory">
+    <proList :data.sync="list" type="publishTraninHistory"/>
   </div>
 </template>
 
@@ -16,7 +16,7 @@
     },
     onLoad() {
       wx.setNavigationBarTitle({
-        title: '我参加的'
+        title: '我发布的培训'
       })
       this.init();
     },
@@ -27,7 +27,7 @@
 
     methods: {
       init () {
-        http('POST',Api.joined_train).then(res=>{
+        http('POST',Api.published_train).then(res=>{
           this.list = res
         })
       },

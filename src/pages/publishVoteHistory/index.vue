@@ -1,35 +1,34 @@
 <template>
-  <div class="joined">
-    <proList :data.sync="list" type="joined"/>
+  <div class="publishVoteHistory">
+    <voteList :list.sync="list" type="publishVoteHistory"/>
   </div>
 </template>
 
 <script>
   import { http } from '@/utils'
   import Api from '@/config/api'
-  import proList from "@/components/list";
+  import voteList from "@/components/voteList";
   export default {
     data(){
       return{
-        list:[]
+        list:[],
+        totalApproveAmount: 0,
       }
     },
     onLoad() {
       wx.setNavigationBarTitle({
-        title: '我参加的'
+        title: '我发布的投票'
       })
       this.init();
     },
 
     components: {
-      proList
+      voteList
     },
 
     methods: {
-      init () {
-        http('POST',Api.joined_train).then(res=>{
-          this.list = res
-        })
+      init(){
+        http('GET',Api.published_vote).then(res=>this.list = res);
       },
     }
   }

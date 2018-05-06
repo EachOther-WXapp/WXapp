@@ -1,5 +1,5 @@
 <template>
-  <div class="publish">
+  <div class="publishTrain">
     <ul>
       <li>
         <i class="iconfont icon-zhuti"></i>
@@ -51,7 +51,7 @@
         <button class="btn" @click="chooseImage" :class="imgurl ? 'act' : ''">上传主题图片</button>
       </li>
     </ul>
-    <button class="submit btn" @click="submit">发布</button>
+    <button class="submit btn" @click="submit">发起培训</button>
   </div>
 </template>
 
@@ -213,7 +213,7 @@
         }
         http('POST',Api.train_add,this.item).then(()=>{
           wx.showToast({
-            title: "发布成功!",
+            title: "发起培训成功!",
             duration: 1000
           })
           setTimeout(()=>{
@@ -226,7 +226,7 @@
 
 </script>
 <style scoped>
-.publish{
+.publishTrain{
   padding: 30rpx;
 }
   li{

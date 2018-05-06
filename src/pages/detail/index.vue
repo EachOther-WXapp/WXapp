@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <detail :data="detail"/>
+    <detail :data="detail" :type="type"/>
   </div>
 </template>
 
@@ -11,6 +11,7 @@
   export default {
     data(){
       return{
+        type: '',
         detail: {}
       }
     },
@@ -26,7 +27,8 @@
     },
     methods: {
       init () {
-        const {trainId} = this.$root.$mp.query;
+        const {trainId, type} = this.$root.$mp.query;
+        this.type = type;
         http('GET',Api.train_detail,{
           trainId
         }).then(res=>{

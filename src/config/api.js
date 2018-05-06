@@ -15,14 +15,30 @@ export default {
 
   train_add: 'train/add',
 
-  train_detail: '/train/detail',
+  train_detail: 'train/detail',
 
   history_train: 'train/history_train',
 
-  join_train: '/train/join_train',
+  join_train: 'train/join_train',
 
-  joined_train: '/train/joined_train',
+  joined_train: 'train/joined_train',
 
-  age_form: '/file/image_form',
+  age_form: 'file/image_form',
+
+  add_option: 'vote/add_option',
+
+  vote_list: 'vote/list',
+
+  vote_approve: 'vote/approve',
+
+  vote_disapprove: 'vote/disapprove',
+
+  published_vote: '/vote/published_vote',
+
+  delete_vote: '/vote/delete',
+
+  published_train: '/train/published_train',
+
+  delete_train: '/train/delete',
 
 }

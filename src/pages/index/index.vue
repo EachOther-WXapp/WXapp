@@ -24,9 +24,7 @@ export default {
 
   methods: {
     init () {
-      http('POST',Api.today_list,null,false).then(res=>{
-        this.list = res
-      })
+      http('POST',Api.today_list,null,false).then(res=>this.list = res)
     },
   }
 }

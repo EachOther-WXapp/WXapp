@@ -1,22 +1,31 @@
 <template>
-  <ul class="list">
-    <li v-for="(i, index) in data" :key="index" >
-      <div class="top">
-        <img :src="i.imageUrl" alt="" class="left" v-if="i.imageUrl" @click="go(i)">
-        <div class="right">
-          <div @click="go(i)">
-            <h2 class="title">{{i.theme}}</h2>
-            <p class="address">地址：{{i.site}}</p>
-            <p class="bot"><span class="teacher">讲师：{{i.lecturer}}</span> <span class="time">时间：{{i.trainStartTimeStr}}~{{i.trainEndTimeStr}}</span></p>
-          </div>
-          <div class="bottom" v-if="type === 'index' || type === 'month'">
-            <span><button class="btn" @click="join(i, index)" :class="i.joinFlag ? '' : 'dis'">{{ i.joinFlag ? '加入培训' : '已参加'}}</button></span>
-            <span class="zancon" :class="index === act ? 'animate' : 'plus'"><i class="likeNumber" v-if="i.likeNumber>0" >+{{i.likeNumber}}</i><i @click="zan(i,index)" class="zan iconfont icon-zan1" :class="i.likeNumber>0 ? 'act' : ''"></i></span>
+  <div>
+    <ul class="list" v-if="data.length">
+      <li v-for="(i, index) in data" :key="index" :class="type === 'publishTraninHistory' ? 'publishTraninHistory' : ''">
+        <div class="top">
+          <img :src="i.imageUrl" alt="" class="left" v-if="i.imageUrl" @click="go(i)">
+          <div class="right">
+            <div @click="go(i)">
+              <h2 class="title">{{i.theme}}</h2>
+              <p class="address">地址：{{i.site}}</p>
+              <p class="bot"><span class="teacher">讲师：{{i.lecturer}}</span> <span class="time">时间：{{i.trainStartTimeStr}}~{{i.trainEndTimeStr}}</span></p>
+            </div>
+            <div class="bottom" v-if="type === 'index' || type === 'month'">
+              <span><button class="btn" @click="join(i, index)" :class="i.joinFlag ? '' : 'dis'">{{ i.joinFlag ? '加入培训' : '已参加'}}</button></span>
+              <span class="zancon" :class="index === act ? 'animate' : 'plus'"><i class="likeNumber" v-if="i.likeNumber>0" >+{{i.likeNumber}}</i><i @click="zan(i,index)" class="zan iconfont icon-zan1" :class="i.likeNumber>0 ? 'act' : ''"></i></span>
+            </div>
           </div>
         </div>
-      </div>
-    </li>
-  </ul>
+        <div class="del" v-if="type === 'publishTraninHistory'">
+          <button class="btn" @click="del(i, index)">删除</button>
+        </div>
+      </li>
+    </ul>
+    <div class="none" v-if="show">
+      <img :src="img" alt="">
+      <button class="btn" @click="submit">发起培训</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -27,6 +36,8 @@
   export default {
     data(){
       return{
+        show: false,
+        img: require('@/assets/none.png'),
         act: null
       }
     },
@@ -34,9 +45,10 @@
       detail
     },
     props: ['data', 'type'],
+
     methods: {
       go(obj){
-        link('detail',{trainId: obj.id})
+        link('detail',{trainId: obj.id, type: this.type})
       },
       join(obj,index){
         if(!obj.joinFlag)return
@@ -50,7 +62,32 @@
       },
       zan(obj,index){
         this.act = index;
-        http('GET',Api.zan,{trainId:obj.id}).then(()=>this.data[index].likeNumber++);
+        setTimeout(()=>{this.act = null },500)
+        http('GET',Api.zan,{trainId:obj.id}, null, false).then(()=>this.data[index].likeNumber++);
+      },
+      del(obj, index){
+        let _this = this;
+        wx.showModal({
+          title: "警告！",
+          content: "您确定要删除此条发布记录吗",
+          confirmText: "确定",
+          cancelText: "取消",
+          success: function(res) {
+            if (res.confirm) {
+              http('GET',Api.delete_train,{trainId:obj.id}).then(()=>{
+                _this.data.splice(index,1)
+              });
+            }
+          }
+        })
+      },
+      submit(){
+        link('publishTrain')
+      }
+    },
+    watch:{
+      'data'(val){
+        this.show = !val.length
       }
     }
   }
@@ -62,7 +99,13 @@
     border-bottom: 1px solid #e8e8e8;
     padding: 30rpx;
     display: flex;
-    align-items: center
+    align-items: center;
+  }
+  li.publishTraninHistory{
+    flex-direction: column;
+  }
+  li:last-child{
+    border: none
   }
   li>div{
     flex: 1;
@@ -127,6 +170,15 @@
   }
   .right .teacher{
     font-size: 24rpx;
+  }
+  .del{
+    margin: 40rpx auto 0;
+    width: 200rpx;
+  }
+  .del .btn{
+    height: 70rpx;
+    line-height: 70rpx;
+    font-size: 32rpx;
   }
   .zancon.animate{
     animation: zan .5s ;

@@ -1,5 +1,5 @@
 <template>
-  <div class="all">
+  <div class="month">
     <proList :data.sync="list" type="month"/>
   </div>
 </template>

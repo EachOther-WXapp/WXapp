@@ -1,51 +1,19 @@
 <template>
-  <div class="publish">
-    <ul>
-      <li><input type="text" v-model="item.title" placeholder="主题"></li>
-      <li>
-        <picker mode="time" :value="time.value" :start="time.start" :end="time.end" @change="timeChange">
-          <view class="picker">
-            时间: {{time.value}}
-          </view>
-        </picker>
-      </li>
-      <li><input type="text" v-model="item.teacher" placeholder="讲师"></li>
-      <li><input type="text" v-model="item.address" placeholder="地点"></li>
-      <li><input type="text" v-model="item.remank" placeholder="详情"></li>
-      <li><input type="text" v-model="item.team" placeholder="TeamView"></li>
-      <li><input type="text" v-model="item.github" placeholder="github"></li>
-    </ul>
-    <button>发布</button>
+  <div class="publishVote">
+    <textarea v-model="content" placeholder="请写出你自己希望培训的内容，并发起投票"></textarea>
+    <button class="btn" @click="submit">发起投票</button>
   </div>
 </template>
 
 <script>
+  import { link } from '@/utils'
+  import { http, upload } from '@/utils'
+  import Api from '@/config/api'
   export default {
     data() {
       return {
-        time: {
-          start: Date.now(),
-          end: Date.now(),
-          value: '',
-        },
-        item: {
-          title: '',
-          time: '',
-          teacher: '',
-          address: '',
-          remank: '',
-          team: '',
-          github: ''
-        }
+        content: ''
       }
-    },
-
-    computed: {
-      count () {
-      }
-    },
-
-    components: {
     },
     onLoad(){
       wx.setNavigationBarTitle({
@@ -53,18 +21,40 @@
       })
     },
     methods: {
-      timeChange(e) {
-        this.time.value = e.target.value;
+      submit(e) {
+        if(!this.content){
+          wx.showModal({
+            title: "提示",
+            content: "请填写投票内容!",
+            showCancel: false,
+            confirmText: "确定",
+          })
+          return
+        }
+        http('GET',Api.add_option,{content: this.content}).then(()=>{
+          wx.showToast({
+            title: "发起投票成功!",
+            duration: 1000
+          })
+          setTimeout(()=>{
+            link('vote')
+          },1000)
+        })
       },
     }
   }
 
 </script>
 <style scoped>
-.publish{
+.publishVote{
   padding: 30rpx;
 }
-  li{
+textarea{
+  margin-bottom: 50rpx;
+  box-sizing: border-box;
+  padding: 30rpx;
+  width: 100%;
+  border: 1px solid #e8e8e8;
+}
 
-  }
 </style>

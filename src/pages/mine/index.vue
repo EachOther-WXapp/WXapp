@@ -1,5 +1,5 @@
 <template>
-  <div class="container" >
+  <div class="container mine" >
     <div class="userinfo">
       <img :src="head_bg" alt="" class="bg">
       <img class="userinfo-avatar" :src="userInfo.avatarUrl" background-size="cover" />
@@ -46,14 +46,18 @@
           name: '我参加的',
           url: 'joined'
         },{
-          icon: 'icon-fabu',
-          name: '我发布的',
-          url: ''
-        },{
           icon: 'icon-shouye',
           name: '我培训的',
           url: 'history'
-        }]
+        },{
+          icon: 'icon-fabu',
+          name: '我发布的培训',
+          url: 'publishTraninHistory'
+        },{
+          icon: 'icon-fabu',
+          name: '我发布的投票',
+          url: 'publishVoteHistory'
+        },]
       }
     },
     computed: {
