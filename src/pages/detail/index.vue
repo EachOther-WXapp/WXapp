@@ -18,6 +18,7 @@
       wx.setNavigationBarTitle({
         title: '培训详情'
       })
+      this.detail = {}
       this.init();
     },
     components: {

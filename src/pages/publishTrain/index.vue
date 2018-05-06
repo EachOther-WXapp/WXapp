@@ -47,8 +47,8 @@
         <textarea v-model="item.detail" placeholder="活动详情及备注"></textarea>
       </li>
       <li class="images">
-        <img :src="item.imageBase64" alt="" v-if="item.imageBase64" :class="item.imageBase64 ? 'act' : ''">
-        <button class="btn" @click="chooseImage" :class="item.imageBase64 ? 'act' : ''">上传主题图片</button>
+        <img :src="imgurl" alt="" v-if="imgurl" :class="imgurl ? 'act' : ''">
+        <button class="btn" @click="chooseImage" :class="imgurl ? 'act' : ''">上传主题图片</button>
       </li>
     </ul>
     <button class="submit btn" @click="submit">发布</button>
@@ -57,7 +57,7 @@
 
 <script>
   import { link } from '@/utils'
-  import { http } from '@/utils'
+  import { http, upload } from '@/utils'
   import Api from '@/config/api'
   export default {
     data() {
@@ -82,10 +82,11 @@
           end: Date.now(),
           value: '',
         },
+        imgurl: '',
         item: {
           startTime: '',
           endTime: '',
-          imageBase64: '',
+          imageId: '',
           theme: '',
           lecturer: '',
           site: '',
@@ -109,8 +110,8 @@
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            _this.item.imageBase64 = res.tempFilePaths[0];
-
+            _this.imgurl = res.tempFilePaths[0];
+            upload(Api.age_form, res.tempFilePaths[0]).then(result=>_this.item.imageId = result)
           }
         })
       },
@@ -190,7 +191,7 @@
           })
           return
         }
-        if(!this.item.imageBase64){
+        if(!this.item.imageId){
           wx.showModal({
             title: "提示",
             content: "请上传主题图片!",
@@ -201,8 +202,23 @@
         }
         this.item.startTime = + new Date(this.startdate.value+' '+this.starttime.value);
         this.item.endTime = + new Date(this.enddate.value+' '+this.endtime.value);
-        http('POST',Api.train_add,this.item).then(res=>{
-          link('main')
+        if(this.item.startTime >= this.item.endTime){
+          wx.showModal({
+            title: "提示",
+            content: "结束时间需大于起始时间!",
+            showCancel: false,
+            confirmText: "确定",
+          })
+          return
+        }
+        http('POST',Api.train_add,this.item).then(()=>{
+          wx.showToast({
+            title: "发布成功!",
+            duration: 1000
+          })
+          setTimeout(()=>{
+            link('main')
+          },1000)
         })
       }
     },

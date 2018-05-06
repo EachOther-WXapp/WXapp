@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <div class="head">
+    <div class="head" v-if="data">
       <img :src="data.imageUrl" alt="" class="left" v-if="data.imageUrl">
       <h2 class="title">{{data.theme}}</h2>
       <p class="time">
@@ -61,7 +61,7 @@
         }]
       }
     },
-    props: ['data']
+    props: ['data'],
   };
 </script>
 
@@ -70,6 +70,7 @@
   padding: 0 30rpx;
 }
 .head img{
+  background: rgba(101, 228, 110, 0.05);
   width: 100%;
 }
 .head .title{

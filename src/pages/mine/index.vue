@@ -88,6 +88,7 @@
     color: #fff;
   }
   .userinfo .bg{
+    background: rgba(101, 228, 110, 0.05);
     height: 100%;
     width: 100%;
     position: absolute;

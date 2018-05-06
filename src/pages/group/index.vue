@@ -38,9 +38,9 @@ export default {
 
 </script>
 <style scoped>
-.group{
+  .group{
 
-}
+  }
   li{
     position: relative;
     height: 300rpx;
@@ -51,6 +51,7 @@ export default {
     justify-content: center;
   }
   li img{
+    background: rgba(101, 228, 110, 0.05);
     height: 100%;
     position: absolute;
     filter: blur(5rpx)

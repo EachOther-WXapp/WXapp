@@ -34,11 +34,18 @@ export function link (url,obj) {
 }
 
 
-export function http(method='GET', api, data) {
+export function http(method='GET', api, data, loading=true) {
   let url = require('@/config/').default.url + api;
   let token = wx.getStorageSync('token') || require('@/state/store').default.state.token;
  return new Promise((resole,reject)=>{
-
+   console.log(api, loading)
+   if(loading){
+     wx.showToast({
+       title: "加载中...",
+       icon: "loading",
+       duration: 5000
+     })
+   }
    wx.request({
       method,
       url,
@@ -48,6 +55,7 @@ export function http(method='GET', api, data) {
         'Authorization': 'Bearer '+token
       },
       success: function(res) {
+        wx.hideToast()
         if(res.data.msg === 'OK' && res.data.code === 200){
           // console.log('当前接口地址为'+api)
           // console.log(res.data.data)
@@ -61,13 +69,17 @@ export function http(method='GET', api, data) {
 }
 
 
-export function upload(method='GET', api, filePath) {
+export function upload(api, filePath) {
 
   let url = require('@/config/').default.url + api;
   let token = wx.getStorageSync('token') || require('@/state/store').default.state.token;
 
   return new Promise((resole,reject)=>{
-
+    wx.showToast({
+      title: "上传中...",
+      icon: "loading",
+      duration: 5000
+    })
     wx.uploadFile({
       url,
       filePath,
@@ -76,8 +88,17 @@ export function upload(method='GET', api, filePath) {
         'Authorization': 'Bearer '+token
       },
       success: function(res){
-        var data = res.data
-        //do something
+        wx.hideToast()
+        if(typeof res.data === 'string'){
+          res.data = JSON.parse(res.data)
+        }
+        if(res.data.msg === 'OK' && res.data.code === 200){
+          // console.log('当前接口地址为'+api)
+          // console.log(res.data.data)
+          resole(res.data.data)
+        }else{
+          reject(res.data)
+        }
       }
     })
 

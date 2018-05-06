@@ -23,4 +23,6 @@ export default {
 
   joined_train: '/train/joined_train',
 
+  age_form: '/file/image_form',
+
 }

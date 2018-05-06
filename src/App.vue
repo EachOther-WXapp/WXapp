@@ -12,13 +12,13 @@
       // 调用登录接口
       wx.login({
         success: r => {
-          http('POST',Api.set_user_info,r).then(result=>{
+          http('POST',Api.set_user_info,r, false).then(result=>{
             wx.setStorageSync('token', result)
             store.commit('set_token', result)
             wx.getUserInfo({
               success: res => {
                 store.commit('set_user_info', res.userInfo)
-                http('POST',Api.update_user_info,res.userInfo)
+                http('POST',Api.update_user_info,res.userInfo, null, false)
               }
             });
           });

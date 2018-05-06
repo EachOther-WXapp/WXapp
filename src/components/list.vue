@@ -103,6 +103,7 @@
     font-size: 24rpx;
   }
   .left{
+    background: rgba(101, 228, 110, 0.05);
     width: 200rpx;
     height: 200rpx;
   }
