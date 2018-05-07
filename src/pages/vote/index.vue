@@ -17,7 +17,7 @@
     },
     onLoad() {
       wx.setNavigationBarTitle({
-        title: '集赞区'
+        title: '投票区'
       })
       this.init();
     },

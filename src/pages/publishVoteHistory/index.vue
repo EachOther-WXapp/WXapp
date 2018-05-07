@@ -17,7 +17,7 @@
     },
     onLoad() {
       wx.setNavigationBarTitle({
-        title: '我发布的集赞'
+        title: '我发布的投票'
       })
       this.init();
     },
