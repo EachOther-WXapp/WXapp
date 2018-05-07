@@ -20,7 +20,7 @@ export default {
           url: 'month'
         },{
           icon: require('@/assets/group2.jpg'),
-          name: '培训投票区',
+          name: '培训集赞区',
           url: 'vote'
         },{
           icon: require('@/assets/group3.png'),

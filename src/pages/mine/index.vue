@@ -38,7 +38,7 @@
           url: 'publishTrain'
         },{
           icon: 'icon-toupiao',
-          name: '发起投票',
+          name: '发起集赞',
           url: 'publishVote'
         }],
         infolist: [{
@@ -55,7 +55,7 @@
           url: 'publishTraninHistory'
         },{
           icon: 'icon-fabu',
-          name: '我发布的投票',
+          name: '我发布的集赞',
           url: 'publishVoteHistory'
         },]
       }

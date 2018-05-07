@@ -1,7 +1,7 @@
 <template>
   <div class="publishVote">
-    <textarea v-model="content" placeholder="请写出你自己希望培训的内容，并发起投票"></textarea>
-    <button class="btn" @click="submit">发起投票</button>
+    <textarea v-model="content" placeholder="请写出你自己希望培训的内容，并发起集赞"></textarea>
+    <button class="btn" @click="submit">发起集赞</button>
   </div>
 </template>
 
@@ -17,7 +17,7 @@
     },
     onLoad(){
       wx.setNavigationBarTitle({
-        title: '发起投票'
+        title: '发起集赞'
       })
     },
     methods: {
@@ -25,7 +25,7 @@
         if(!this.content){
           wx.showModal({
             title: "提示",
-            content: "请填写投票内容!",
+            content: "请填写集赞内容!",
             showCancel: false,
             confirmText: "确定",
           })
@@ -33,7 +33,7 @@
         }
         http('GET',Api.add_option,{content: this.content}).then(()=>{
           wx.showToast({
-            title: "发起投票成功!",
+            title: "发起集赞成功!",
             duration: 1000
           })
           setTimeout(()=>{

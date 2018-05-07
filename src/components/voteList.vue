@@ -17,7 +17,7 @@
     </ul>
     <div class="none" v-if="show">
       <img :src="img" alt="">
-      <button class="btn" @click="submit">发起投票</button>
+      <button class="btn" @click="submit">发起集赞</button>
     </div>
   </div>
 </template>
